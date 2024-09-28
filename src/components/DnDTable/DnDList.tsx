@@ -8,6 +8,7 @@ interface DnDListProps {
   items: EquipmentsInterface[];
   setAllItems: React.Dispatch<React.SetStateAction<EquipmentsInterface[]>>;
   id: number;
+  name: string;
   fieldsToShow: string[];
   showHeader: boolean;
 }
@@ -16,6 +17,7 @@ const DnDList: React.FC<DnDListProps> = ({
   items,
   setAllItems,
   id,
+  name,
   fieldsToShow,
   showHeader,
 }) => {
@@ -24,15 +26,16 @@ const DnDList: React.FC<DnDListProps> = ({
   const [{ isOver }, drop] = useDrop(
     {
       accept: id !== 0 ? "ITEM" : "",
-      drop: (item: { id: number; ids?: number[] }) => {
-        const itemsToMove = item.ids || [item.id];
+      drop: (item: { ids?: number[] }) => {
+        const itemsToMove = item.ids;
+
         setAllItems((prevItems) =>
           prevItems.map((i) =>
-            itemsToMove.includes(i.id)
+            itemsToMove?.includes(i.id)
               ? {
                   ...i,
                   assignedTo: id,
-                  assignedToName: id === 1 ? "Gate A" : "Gate B",
+                  assignedToName: name,
                 }
               : i
           )
@@ -67,7 +70,7 @@ const DnDList: React.FC<DnDListProps> = ({
           <DnDListItems
             key={item.id}
             item={item}
-            origin={id}
+            assignedTo={id}
             fieldsToShow={fieldsToShow}
             handleCheckboxChange={handleCheckboxChange}
             isSelected={selectedItems.includes(item.id)}
