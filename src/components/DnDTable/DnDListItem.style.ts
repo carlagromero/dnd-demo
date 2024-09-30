@@ -4,7 +4,9 @@ interface StyledDnDListItemRowProps {
   columnCount: number;
 }
 
-export const StyledDnDListItemRow = styled.div<StyledDnDListItemRowProps>`
+export const StyledDnDListItemRow = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["columnCount"].includes(prop),
+})<StyledDnDListItemRowProps>`
   display: grid;
   grid-template-columns: ${({ columnCount }) =>
     `40px repeat(${columnCount}, 1fr) 40px`};

@@ -24,7 +24,6 @@ const Card: React.FC<CardProps> = ({ title, children }) => {
 
   const handleDragLeave = () => {
     if (dragTimeoutRef.current) {
-      console.log("dragTimeoutRef.current", dragTimeoutRef.current);
       clearTimeout(dragTimeoutRef.current);
       dragTimeoutRef.current = null;
     }
