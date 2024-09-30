@@ -1,7 +1,6 @@
 export interface GatesInterface {
   id: number;
   name: string;
-  devices: number[];
 }
 
 export const generateGates = (total: number): GatesInterface[] => {
@@ -11,7 +10,6 @@ export const generateGates = (total: number): GatesInterface[] => {
     gates.push({
       id: i,
       name: `Gate ${String.fromCharCode(64 + i)}`,
-      devices: [],
     });
   }
 
