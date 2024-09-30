@@ -8,7 +8,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [query, setQuery] = useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
+    const newValue = event.target.value;
+
+    setQuery(newValue);
+
+    if (newValue === "") {
+      onSearch("");
+    }
   };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -19,7 +25,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   return (
     <form onSubmit={handleSearch}>
       <input
-        type="text"
+        type="search"
         value={query}
         onChange={handleInputChange}
         placeholder="Search..."
