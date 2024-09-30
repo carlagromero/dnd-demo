@@ -9,7 +9,7 @@ import { MdOutlineDragIndicator } from "react-icons/md";
 
 interface DnDListItemsProps {
   item: EquipmentsInterface;
-  assignedTo: number;
+  // assignedTo: number;
   fieldsToShow: string[];
   handleCheckboxChange: (itemId: number) => void;
   isSelected: boolean;
@@ -19,7 +19,7 @@ interface DnDListItemsProps {
 
 const DnDListItem: React.FC<DnDListItemsProps> = ({
   item,
-  assignedTo,
+  // assignedTo,
   fieldsToShow,
   handleCheckboxChange,
   isSelected,
@@ -41,7 +41,7 @@ const DnDListItem: React.FC<DnDListItemsProps> = ({
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
-      canDrag: () => !item.assignedTo || assignedTo !== 0,
+      // canDrag: () => !item.assignedTo || assignedTo !== 0,
     }),
     [item, selectedItems]
   );

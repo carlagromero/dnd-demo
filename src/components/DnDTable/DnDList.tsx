@@ -66,7 +66,7 @@ const DnDList: React.FC<DnDListProps> = ({
             <DnDListItems
               key={item.id}
               item={item}
-              assignedTo={id}
+              // assignedTo={id}
               fieldsToShow={fieldsToShow}
               handleCheckboxChange={handleCheckboxChange}
               isSelected={selectedItems.includes(item.id)}
