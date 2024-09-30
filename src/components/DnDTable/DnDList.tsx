@@ -57,12 +57,7 @@ const DnDList: React.FC<DnDListProps> = ({
   };
 
   return (
-    <StyledDndListContainer
-      ref={drop}
-      style={{
-        backgroundColor: isOver ? "#f0f0f0" : "white",
-      }}
-    >
+    <StyledDndListContainer ref={drop} isOver={isOver}>
       {showHeader && <h2>HEADER</h2>}
       {items
         .sort((a) => (a.assignedTo === null ? -1 : 1))
@@ -75,7 +70,7 @@ const DnDList: React.FC<DnDListProps> = ({
             handleCheckboxChange={handleCheckboxChange}
             isSelected={selectedItems.includes(item.id)}
             selectedItems={selectedItems}
-            setSelectedItems={setSelectedItems} // Pasar la función para limpiar selección
+            setSelectedItems={setSelectedItems}
           />
         ))}
     </StyledDndListContainer>

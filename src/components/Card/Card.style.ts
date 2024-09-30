@@ -13,6 +13,9 @@ export const CardStyled = styled.div`
 `;
 
 export const CardHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #181f25;
   font-family: Roboto;
   font-size: 20px;
@@ -24,4 +27,12 @@ export const CardHeader = styled.div`
 export const CardBody = styled.div`
   overflow: auto;
   height: 200px;
+`;
+
+export const IconWrapper = styled.div`
+  cursor: pointer;
+
+  &:hover {
+    color: gray;
+  }
 `;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 interface SearchBarProps {
-  onSearch: (query: string) => void; // Función que se llama al buscar
+  onSearch: (query: string) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
@@ -23,7 +23,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         value={query}
         onChange={handleInputChange}
         placeholder="Search..."
-        style={{ padding: "10px", width: "200px", borderRadius: "4px" }} // Estilo simple
+        style={{ padding: "10px", width: "200px", borderRadius: "4px" }}
       />
       <button type="submit" style={{ padding: "10px", marginLeft: "5px" }}>
         Search
