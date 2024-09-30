@@ -48,6 +48,17 @@ const DnDList: React.FC<DnDListProps> = ({
     [items]
   );
 
+  const handleDeleteItem = (itemId: number) => {
+    setAllItems((prevItems) => {
+      return prevItems.map((item) => {
+        if (item.id === itemId) {
+          return { ...item, assignedTo: null, assignedToName: null };
+        }
+        return item;
+      });
+    });
+  };
+
   const handleCheckboxChange = (itemId: number) => {
     setSelectedItems((prevSelectedItems) =>
       prevSelectedItems.includes(itemId)
@@ -72,6 +83,7 @@ const DnDList: React.FC<DnDListProps> = ({
               isSelected={selectedItems.includes(item.id)}
               selectedItems={selectedItems}
               setSelectedItems={setSelectedItems}
+              onDelete={handleDeleteItem}
             />
           ))
       ) : (

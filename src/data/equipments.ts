@@ -4,7 +4,7 @@ export interface EquipmentsInterface {
   brand: string;
   model: string;
   assignedTo?: number | null;
-  assignedToName?: string;
+  assignedToName?: string | null;
 }
 
 export const generateEquipments = (total: number): EquipmentsInterface[] => {
