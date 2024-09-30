@@ -13,3 +13,10 @@ export const StyledDndListContainer = styled.div.withConfig({
   height: calc(100% - 32px);
   overflow: auto;
 `;
+
+export const StyledEmptyState = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+`;

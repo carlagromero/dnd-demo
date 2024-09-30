@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DnDListItems from "./DnDListItem.tsx";
 import { useDrop } from "react-dnd";
-import { StyledDndListContainer } from "./DnDList.style";
+import { StyledDndListContainer, StyledEmptyState } from "./DnDList.style";
 import { EquipmentsInterface } from "../../data/equipments.ts";
 
 interface DnDListProps {
@@ -59,20 +59,24 @@ const DnDList: React.FC<DnDListProps> = ({
   return (
     <StyledDndListContainer ref={drop} isOver={isOver}>
       {showHeader && <h2>HEADER</h2>}
-      {items
-        .sort((a) => (a.assignedTo === null ? -1 : 1))
-        .map((item) => (
-          <DnDListItems
-            key={item.id}
-            item={item}
-            assignedTo={id}
-            fieldsToShow={fieldsToShow}
-            handleCheckboxChange={handleCheckboxChange}
-            isSelected={selectedItems.includes(item.id)}
-            selectedItems={selectedItems}
-            setSelectedItems={setSelectedItems}
-          />
-        ))}
+      {items.length ? (
+        items
+          .sort((a) => (a.assignedTo === null ? -1 : 1))
+          .map((item) => (
+            <DnDListItems
+              key={item.id}
+              item={item}
+              assignedTo={id}
+              fieldsToShow={fieldsToShow}
+              handleCheckboxChange={handleCheckboxChange}
+              isSelected={selectedItems.includes(item.id)}
+              selectedItems={selectedItems}
+              setSelectedItems={setSelectedItems}
+            />
+          ))
+      ) : (
+        <StyledEmptyState>No Data</StyledEmptyState>
+      )}
     </StyledDndListContainer>
   );
 };
