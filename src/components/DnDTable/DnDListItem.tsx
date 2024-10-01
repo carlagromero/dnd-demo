@@ -10,7 +10,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 
 interface DnDListItemsProps {
   item: EquipmentsInterface;
-  fieldsToShow: string[];
+  fieldsToShow: (keyof EquipmentsInterface)[];
   handleCheckboxChange: (itemId: number) => void;
   isSelected: boolean;
   selectedItems: number[];

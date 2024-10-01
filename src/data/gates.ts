@@ -16,4 +16,4 @@ export const generateGates = (total: number): GatesInterface[] => {
   return gates;
 };
 
-export const gates = generateGates(6);
+export const gates = generateGates(10);

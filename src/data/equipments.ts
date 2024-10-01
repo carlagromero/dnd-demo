@@ -1,3 +1,5 @@
+import { gates } from "./gates";
+
 export interface EquipmentsInterface {
   id: number;
   name: string;
@@ -11,13 +13,15 @@ export const generateEquipments = (total: number): EquipmentsInterface[] => {
   const equipments: EquipmentsInterface[] = [];
 
   for (let i = 1; i <= total; i++) {
+    const gateId = i % 3 === 0 ? Math.ceil(Math.random() * 3) : null;
+
     equipments.push({
       id: i,
-      name: `Device ${i.toString().padStart(2, '0')}`,
+      name: `Device ${i.toString().padStart(2, "0")}`,
       brand: "Janam",
       model: "XT2",
-      assignedTo: i % 3 === 0 ? Math.ceil(Math.random() * 3) : null,
-      assignedToName: i % 3 === 0 ? `Gate ${String.fromCharCode(64 + Math.ceil(Math.random() * 3))}` : undefined,
+      assignedTo: gateId,
+      assignedToName: gateId ? gates.find((g) => g.id === gateId)?.name : null,
     });
   }
 
