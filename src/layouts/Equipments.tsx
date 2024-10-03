@@ -1,12 +1,20 @@
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { DnDList } from "../components/DnDTable";
 import { useEffect, useState } from "react";
 import { equipments } from "../data/equipments";
 import { gates } from "../data/gates";
 import { Container, SideContainer } from "./Equipments.style";
 import { Card } from "../components/Card";
 import SearchBar from "../components/SearchBar/SearchBar";
+import {
+  DnDBody,
+  DnDCell,
+  DnDHead,
+  DnDHeader,
+  DnDList,
+  DnDRow,
+  DropArea,
+} from "../components/DnDList";
 
 export default function Equipments() {
   const [allItems, setAllItems] = useState(equipments);
@@ -26,9 +34,23 @@ export default function Equipments() {
     setFilteredItems(filtered);
   };
 
+  const handleDrop = (id: number, itemsToMove?: number[]) => {
+    setAllItems((prevItems) =>
+      prevItems.map((i) =>
+        itemsToMove?.includes(i.id)
+          ? {
+              ...i,
+              assignedTo: id,
+              assignedToName: gates.find((g) => g.id === id)?.name,
+            }
+          : i
+      )
+    );
+  };
+
   useEffect(() => {
     handleSearch(lastQuery);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allItems]);
 
   return (
@@ -37,28 +59,62 @@ export default function Equipments() {
         <SideContainer>
           <div style={{ marginBottom: "10px" }}>
             <SearchBar onSearch={handleSearch} />
-            <DnDList
-              id={0}
-              name="source"
-              items={filteredItems}
-              setAllItems={setAllItems}
-              fieldsToShow={["name", "brand", "model", "assignedToName"]}
-              showHeader
-            />
+            <DnDList>
+              <DnDHeader numberOfColumns={3} showSelector>
+                <DnDHead>Name</DnDHead>
+                <DnDHead>Make/Model</DnDHead>
+                <DnDHead>Assigned</DnDHead>
+              </DnDHeader>
+              <DnDBody style={{ marginTop: "20px" }}>
+                {filteredItems.map((item) => (
+                  <DnDRow
+                    key={item.id}
+                    id={item.id}
+                    numberOfColumns={3}
+                    showSelector
+                  >
+                    <DnDCell>{item.name}</DnDCell>
+                    <DnDCell>{`${item.brand}/${item.model}`}</DnDCell>
+                    <DnDCell>{item.assignedToName}</DnDCell>
+                  </DnDRow>
+                ))}
+              </DnDBody>
+            </DnDList>
           </div>
         </SideContainer>
 
         <SideContainer>
           {gates.map((gate) => (
-            <Card title={gate.name} key={gate.id}>
-              <DnDList
-                id={gate.id}
-                name={gate.name}
+            <Card
+              key={gate.id}
+              title={gate.name}
+              style={{ marginBottom: "10px" }}
+            >
+              <DropArea
+                key={gate.id}
                 items={allItems.filter((i) => i.assignedTo === gate.id)}
-                setAllItems={setAllItems}
-                fieldsToShow={["name", "brand", "model"]}
-                showHeader={false}
-              />
+                id={gate.id}
+                onDrop={handleDrop}
+              >
+                <DnDList key={gate.id}>
+                  <DnDBody hideOnDrag>
+                    {allItems
+                      .filter((e) => e.assignedTo === gate.id)
+                      .map((item) => (
+                        <DnDRow
+                          key={item.id}
+                          id={item.id}
+                          numberOfColumns={3}
+                          showSelector
+                        >
+                          <DnDCell>{item.name}</DnDCell>
+                          <DnDCell>{`${item.brand}/${item.model}`}</DnDCell>
+                          <DnDCell>{item.assignedToName}</DnDCell>
+                        </DnDRow>
+                      ))}
+                  </DnDBody>
+                </DnDList>
+              </DropArea>
             </Card>
           ))}
         </SideContainer>

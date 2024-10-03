@@ -4,10 +4,11 @@ import { GoChevronDown, GoChevronRight } from "react-icons/go";
 
 interface CardProps {
   title: string;
+  style?: React.CSSProperties;
   children: React.ReactNode;
 }
 
-const Card: React.FC<CardProps> = ({ title, children }) => {
+const Card: React.FC<CardProps> = ({ title, style, children }) => {
   const [isCollapsible, setIsCollapsible] = useState(false);
 
   const dragTimeoutRef = useRef<number | null>(null);
@@ -30,7 +31,7 @@ const Card: React.FC<CardProps> = ({ title, children }) => {
   };
 
   return (
-    <CardStyled>
+    <CardStyled style={style}>
       <CardHeader>
         {title}
         <IconWrapper

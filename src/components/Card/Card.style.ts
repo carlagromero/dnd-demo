@@ -6,9 +6,6 @@ export const CardStyled = styled.div`
   border-radius: 8px;
   border: 1px solid #e6e9edcc;
   background-color: #ffffff;
-  &:not(:last-child) {
-    margin-bottom: 16px;
-  }
   overflow: hidden;
 `;
 
